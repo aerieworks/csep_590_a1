@@ -1,0 +1,17 @@
+<resources>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_apply_gravity_filter">Apply gravity filter</string>
+    <string name="pref_description_apply_gravity_filter">Applies a filter that attempts to account for and remove the effects of gravity on the accelerometer data.</string>
+
+    <string name="pref_title_max_plot_range">Max plot range value</string>
+    <string name="pref_description_max_plot_range">Maximum/minimum value to be displayed in the plot.</string>
+
+    <string name="pref_title_max_step_duration">Max step duration (ms)</string>
+
+    <string name="pref_title_step_z_threshold">Step counter Z threshold</string>
+</resources>
