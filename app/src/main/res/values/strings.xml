@@ -1,8 +1,23 @@
 <resources>
     <string name="app_name">Step Counter</string>
+    <string name="app_name_parameterized">Step Counter: %d step(s) taken</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="number_of_steps_taken">Steps Taken:</string>
+    <string name="action_reset">Reset step count</string>
 
+    <string name="confirm_reset_step_count">Do you want to reset the step counter to 0?</string>
+    <string name="confirmation_title">Please Confirm</string>
+    <string name="confirmation_yes">Yes</string>
+    <string name="confirmation_no">No</string>
+
+    <string name="sensor_name_accelerometer">Accelerometer</string>
+    <string name="sensor_name_gyroscope">Gyroscope</string>
+    <string name="sensor_name_gravity">Gravity</string>
+    <string name="sensor_name_rotation">Rotation Vector</string>
+    <string name="sensor_name_step_counter">Step Counter</string>
+
+    <string name="sensor_plot_x_range_label">X</string>
+    <string name="sensor_plot_y_range_label">Y</string>
+    <string name="sensor_plot_z_range_label">Z</string>
 </resources>

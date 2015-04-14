@@ -1,33 +1,33 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
-        android:key="pref_applyGravityFilter"
+        android:key="@string/pref_key_apply_gravity_filter"
         android:title="@string/pref_title_apply_gravity_filter"
         android:summary="@string/pref_description_apply_gravity_filter"
-        android:defaultValue="true" />
+        android:defaultValue="@bool/default_apply_gravity_filter" />
 
     <EditTextPreference
-        android:key="pref_maxPlotRange"
+        android:key="@string/pref_key_max_plot_range"
         android:title="@string/pref_title_max_plot_range"
-        android:defaultValue="15.0"
+        android:defaultValue="@string/default_max_plot_range"
         android:selectAllOnFocus="true"
         android:inputType="numberDecimal"
         android:singleLine="true"
         android:maxLines="1" />
 
     <EditTextPreference
-        android:key="pref_maxStepDuration"
+        android:key="@string/pref_key_max_step_duration"
         android:title="@string/pref_title_max_step_duration"
-        android:defaultValue="1000"
+        android:defaultValue="@string/default_max_step_duration"
         android:selectAllOnFocus="true"
         android:inputType="number"
         android:singleLine="true"
         android:maxLines="1" />
 
     <EditTextPreference
-        android:key="pref_stepThresholdZ"
+        android:key="@string/pref_key_step_z_threshold"
         android:title="@string/pref_title_step_z_threshold"
-        android:defaultValue="5.0"
+        android:defaultValue="@string/default_step_threshold_z"
         android:selectAllOnFocus="true"
         android:inputType="numberDecimal"
         android:singleLine="true"

@@ -4,9 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -16,9 +13,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
-
 
 import java.util.List;
 
@@ -34,16 +28,6 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends PreferenceActivity {
-  public static final String KEY_PREF_APPLY_GRAVITY_FILTER = "pref_applyGravityFilter";
-  public static final String KEY_PREF_MAX_PLOT_RANGE = "pref_maxPlotRange";
-  public static final String KEY_PREF_MAX_STEP_DURATION = "pref_maxStepDuration";
-  public static final String KEY_PREF_STEP_THRESHOLD_Z = "pref_stepThresholdZ";
-
-  public static final boolean DEF_PREF_APPLY_GRAVITY_FILTER = false;
-  public static final String DEF_PREF_MAX_PLOT_RANGE = "15.0";
-  public static final String DEF_PREF_MAX_STEP_DURATION = "1000";
-  public static final String DEF_PREF_STEP_THRESHOLD_Z = "5.0";
-
   /**
    * Determines whether to always show the simplified settings UI, where
    * settings are presented in a single list. When false, settings are shown
@@ -75,14 +59,22 @@ public class SettingsActivity extends PreferenceActivity {
 
     // Add 'general' preferences.
     addPreferencesFromResource(R.xml.pref_general);
+    addPreferencesFromResource(R.xml.pref_median_filter);
+    addPreferencesFromResource(R.xml.pref_mean_shifter);
+    addPreferencesFromResource(R.xml.pref_reorienter);
 
     // Bind the summaries of EditText/List/Dialog/Ringtone preferences to
     // their values. When their values change, their summaries are updated
     // to reflect the new value, per the Android Design guidelines.
-    bindPreferenceSummaryToValue(findPreference(KEY_PREF_APPLY_GRAVITY_FILTER), DEF_PREF_APPLY_GRAVITY_FILTER);
-    bindPreferenceSummaryToValue(findPreference(KEY_PREF_MAX_PLOT_RANGE), DEF_PREF_MAX_PLOT_RANGE);
-    bindPreferenceSummaryToValue(findPreference(KEY_PREF_MAX_STEP_DURATION), DEF_PREF_MAX_STEP_DURATION);
-    bindPreferenceSummaryToValue(findPreference(KEY_PREF_STEP_THRESHOLD_Z), DEF_PREF_STEP_THRESHOLD_Z);
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_gravity_filter)), getResources().getBoolean(R.bool.default_apply_gravity_filter));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_max_plot_range)), getString(R.string.default_max_plot_range));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_max_step_duration)), getString(R.string.default_max_step_duration));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_step_z_threshold)), getString(R.string.default_step_threshold_z));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_median_filter)), getResources().getBoolean(R.bool.default_apply_median_filter));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_median_filter_window_size)), getResources().getInteger(R.integer.default_median_filter_window_size));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_mean_shifter)), getResources().getBoolean(R.bool.default_apply_mean_shifter));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_mean_shifter_window_size)), getResources().getInteger(R.integer.default_mean_shifter_window_size));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_reorienter)), getResources().getBoolean(R.bool.default_apply_reorienter));
   }
 
   /**
@@ -175,7 +167,7 @@ public class SettingsActivity extends PreferenceActivity {
     if (preference instanceof CheckBoxPreference) {
       value = defaultSharedPreferences.getBoolean(preference.getKey(), (boolean)defaultValue);
     } else if (preference instanceof EditTextPreference) {
-      value = defaultSharedPreferences.getString(preference.getKey(), (String)defaultValue);
+      value = defaultSharedPreferences.getString(preference.getKey(), defaultValue.toString());
     } else {
       throw new IllegalArgumentException("Unsupported preference type: " + preference.getClass().getName());
     }
@@ -194,14 +186,45 @@ public class SettingsActivity extends PreferenceActivity {
       super.onCreate(savedInstanceState);
       addPreferencesFromResource(R.xml.pref_general);
 
-      // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-      // to their values. When their values change, their summaries are
-      // updated to reflect the new value, per the Android Design
-      // guidelines.
-      bindPreferenceSummaryToValue(findPreference(KEY_PREF_APPLY_GRAVITY_FILTER), DEF_PREF_APPLY_GRAVITY_FILTER);
-      bindPreferenceSummaryToValue(findPreference(KEY_PREF_MAX_PLOT_RANGE), DEF_PREF_MAX_PLOT_RANGE);
-      bindPreferenceSummaryToValue(findPreference(KEY_PREF_MAX_STEP_DURATION), DEF_PREF_MAX_STEP_DURATION);
-      bindPreferenceSummaryToValue(findPreference(KEY_PREF_STEP_THRESHOLD_Z), DEF_PREF_STEP_THRESHOLD_Z);
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_gravity_filter)), getResources().getBoolean(R.bool.default_apply_gravity_filter));
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_max_plot_range)), getString(R.string.default_max_plot_range));
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_max_step_duration)), getString(R.string.default_max_step_duration));
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_step_z_threshold)), getString(R.string.default_step_threshold_z));
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class MedianFilterPreferenceFragment extends PreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_median_filter);
+
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_median_filter)), getResources().getBoolean(R.bool.default_apply_median_filter));
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_median_filter_window_size)), getResources().getInteger(R.integer.default_median_filter_window_size));
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class MeanShifterPreferenceFragment extends PreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_mean_shifter);
+
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_mean_shifter)), getResources().getBoolean(R.bool.default_apply_mean_shifter));
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_mean_shifter_window_size)), getResources().getInteger(R.integer.default_mean_shifter_window_size));
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class ReorienterPreferenceFragment extends PreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_reorienter);
+
+      bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_key_apply_reorienter)), getResources().getBoolean(R.bool.default_apply_reorienter));
     }
   }
 }

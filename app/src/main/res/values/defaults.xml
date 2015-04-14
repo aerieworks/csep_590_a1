@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="default_apply_gravity_filter">true</bool>
+    <string name="default_max_plot_range">15.0</string>
+    <string name="default_max_step_duration">1000</string>
+    <string name="default_step_threshold_z">1.75</string>
+    <bool name="default_apply_median_filter">false</bool>
+    <integer name="default_median_filter_window_size">4</integer>
+    <bool name="default_apply_mean_shifter">false</bool>
+    <integer name="default_mean_shifter_window_size">200</integer>
+    <bool name="default_apply_reorienter">false</bool>
+</resources>

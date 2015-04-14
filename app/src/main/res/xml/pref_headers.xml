@@ -6,4 +6,15 @@
         android:fragment="com.richanna.stepcounter.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general"/>
 
+    <header
+        android:fragment="com.richanna.stepcounter.SettingsActivity$MedianFilterPreferenceFragment"
+        android:title="@string/pref_header_medianfilter"/>
+
+    <header
+        android:fragment="com.richanna.stepcounter.SettingsActivity$MeanShifterPreferenceFragment"
+        android:title="@string/pref_header_mean_shifter"/>
+
+    <header
+        android:fragment="com.richanna.stepcounter.SettingsActivity$ReorienterPreferenceFragment"
+        android:title="@string/pref_header_reorienter"/>
 </preference-headers>

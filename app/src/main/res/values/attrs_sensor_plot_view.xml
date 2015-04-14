@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="SensorPlotView">
+        <attr name="maxPlotRangePreference" format="string"/>
+        <attr name="maxPlotRangeDefault" format="float"/>
+    </declare-styleable>
+</resources>

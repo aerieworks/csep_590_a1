@@ -7,11 +7,46 @@
 
     <string name="pref_title_apply_gravity_filter">Apply gravity filter</string>
     <string name="pref_description_apply_gravity_filter">Applies a filter that attempts to account for and remove the effects of gravity on the accelerometer data.</string>
+    <string name="pref_key_apply_gravity_filter">KEY_PREF_APPLY_GRAVITY_FILTER</string>
 
     <string name="pref_title_max_plot_range">Max plot range value</string>
     <string name="pref_description_max_plot_range">Maximum/minimum value to be displayed in the plot.</string>
+    <string name="pref_key_max_plot_range">KEY_PREF_MAX_PLOT_RANGE</string>
 
     <string name="pref_title_max_step_duration">Max step duration (ms)</string>
+    <string name="pref_key_max_step_duration">KEY_PREF_MAX_STEP_DURATION</string>
 
     <string name="pref_title_step_z_threshold">Step counter Z threshold</string>
+    <string name="pref_key_step_z_threshold">KEY_PREF_STEP_THRESHOLD_Z</string>
+
+
+    <!-- MedianFilter Settings -->
+    <string name="pref_header_medianfilter">Median Filter</string>
+
+    <string name="pref_title_apply_median_filter">Apply median filter</string>
+    <string name="pref_description_apply_median_filter">Applies a filter that outputs data points based on the median values of the "real" data points.</string>
+    <string name="pref_key_apply_median_filter">KEY_PREF_APPLY_MEDIAN_FILTER</string>
+
+    <string name="pref_title_median_filter_window_size">Median window size</string>
+    <string name="pref_description_median_filter_window_size">The number of data points to use when calculating the median for a given data point.</string>
+    <string name="pref_key_median_filter_window_size">KEY_PREF_MEDIAN_FILTER_WINDOW_SIZE</string>
+
+
+    <!-- MeanShifter Settings -->
+    <string name="pref_header_mean_shifter">Mean Shifter</string>
+
+    <string name="pref_title_apply_mean_shifter">Apply mean shifter</string>
+    <string name="pref_description_apply_mean_shifter">Applies a filter that shifts data points by the mean value over some window.</string>
+    <string name="pref_key_apply_mean_shifter">KEY_PREF_APPLY_MEAN_SHIFTER</string>
+
+    <string name="pref_title_mean_shifter_window_size">Mean window size</string>
+    <string name="pref_description_mean_shifter_window_size">The size of the window to calculate the mean over.</string>
+    <string name="pref_key_mean_shifter_window_size">KEY_PREF_MEAN_FILTER_WINDOW_SIZE</string>
+
+    <!-- Reorienter Settings -->
+    <string name="pref_header_reorienter">Reorienter</string>
+
+    <string name="pref_title_apply_reorienter">Apply reorienter</string>
+    <string name="pref_description_apply_reorienter">Applies a filter to accelerometer data that reorients vectors to world coordinates.</string>
+    <string name="pref_key_apply_reorienter">KEY_PREF_APPLY_REORIENTER</string>
 </resources>
